@@ -1,12 +1,6 @@
-require("dotenv").config()
-
+/**
+ * @type import('hardhat/config').HardhatUserConfig
+ */
 module.exports = {
-    networks: {
-        hardhat: {
-            forking: {
-                url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
-                blockNumber: 14300000,
-            },
-        },
-    },
-}
+  solidity: "0.7.3",
+};
