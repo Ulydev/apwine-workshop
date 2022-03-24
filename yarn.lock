@@ -59,10 +59,10 @@
     copyfiles "^2.4.1"
     ethers "^5.5.2"
 
-"@apwine/sdk@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@apwine/sdk/-/sdk-0.1.4.tgz#9dddd7d9aa63d2ce89844683051ecf59416210a3"
-  integrity sha512-DzxIubBht8cNKs5ci2z1QouUvowasRPhwsPrilUcX2jg/R4/zVEZ8r24P1QKULsDlKToykOJZDgkpOQVh0bNrQ==
+"@apwine/sdk@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@apwine/sdk/-/sdk-0.1.5.tgz#d3db3df33597f640df5805f4eac959ff196d1b92"
+  integrity sha512-LqDCHHgEaf9D5k2N0XFPBSNaRN352u3GtOgBoO8tNxeNqW+Drk6uUkI00TxWIIhVARNI0UMor8vJLa34j9deCQ==
   dependencies:
     "@0xsequence/multicall" "^0.35.2"
     "@apwine/amm" "^0.1.2"
