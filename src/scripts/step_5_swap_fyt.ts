@@ -1,5 +1,4 @@
 import { AMOUNT_TO_TOKENIZE, run as tokenizeIBT } from "./step_4_tokenize_ibt"
-import { approve } from "../utils/approve"
 import { balance } from "../utils/balance"
 import { AMM__factory } from "../contracts/AMM__factory"
 import { ethFloat } from "../utils/ethFloat"
@@ -13,14 +12,11 @@ export const run = async () => {
 
     console.log(`5️⃣  Swap FYT for PT`)
 
-    // Approve FYT on the AMM
-    console.log(`    🔮 Approving FYT on the AMM...`)
     const user = await sdk.signer.getAddress()
     const fytAddress = await sdk
         .FutureVault(stETHFuture.address)
         .getFYTofPeriod(1)
     const fytBalance = await balance(sdk.provider, fytAddress, user)
-    await approve(sdk.signer, fytAddress, sdk.Router.address, fytBalance)
 
     // Execute a FYT -> PT swap on the AMM
     console.log(`    🔮 Swapping FYT for PT...`)
@@ -28,19 +24,18 @@ export const run = async () => {
         stETHFuture.address
     )
     const amm = AMM__factory.connect(ammAddress, sdk.provider)
-    await sdk.swapIn({
-        amm,
-        from: "FYT",
-        to: "PT",
-        amount: fytBalance,
-    })
+    await sdk.swapIn(
+        {
+            amm,
+            from: "FYT",
+            to: "PT",
+            amount: fytBalance,
+        },
+        { autoApprove: true } // Approve automatically if needed
+    )
 
     // Get final PT balance and compute resulting APR
-    const ptBalance = await balance(
-        sdk.provider,
-        stETHFuture.apwibtAddress,
-        user
-    )
+    const ptBalance = await balance(sdk.provider, stETHFuture.ptAddress, user)
     console.log(`    ✅ Done! Result: ${ethFloat(ptBalance).toFixed(2)} PT.`)
     console.log(
         `\n    💥 Final guaranteed APR with strategy: ${computeAPR(

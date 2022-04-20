@@ -4,7 +4,6 @@ import APWineSDK from "@apwine/sdk"
 import { ethers } from "ethers"
 import { checkEnv } from "../utils/checkEnv"
 import { ChainId } from "../types/ChainId"
-import { sdkPolyfills } from "../utils/sdkPolyfills"
 
 export const provider = new ethers.providers.JsonRpcProvider(
     "http://localhost:8545"
@@ -42,8 +41,6 @@ export const run = async () => {
     console.log(
         `    ✅ APWine SDK initialized on ${ChainId[sdk.network.toString()]}`
     )
-
-    sdkPolyfills(sdk)
 
     return { sdk }
 }
